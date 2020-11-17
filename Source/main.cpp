@@ -4,6 +4,8 @@ Date Created:12/11/20 06:58
 */
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <iomanip>
 void menu();
 using namespace std;
 
@@ -22,7 +24,7 @@ ofstream outFile;
 
 void AddStudent(){
 
-	outFile.open("student.dat");
+	outFile.open("student.dat",ios::app);
 	string id,lastName,firstName,age,contactNumber,emailAddress;
 	cout<<"Enter Id of the Student: ";
 	cin>>id;
@@ -36,52 +38,70 @@ void AddStudent(){
 	cin>>contactNumber;
 	cout<<"Enter Email Address: ";
 	cin>>emailAddress;
-	outFile<<id<<" "<<lastName<<" "<<firstName<<" "<<age<<" "<<contactNumber<<" "<<emailAddress<<" ";
+	outFile<<id<<" "<<lastName<<" "<<firstName<<" "<<age<<" "<<contactNumber<<" "<<emailAddress<<" \n";
 	outFile.close();
-	
-	
-	
+
 }
 void AddBook(){
-	
-	
-	
-	
+	outFile.open("book.dat",ios::app);
+	string id,name,author,pdate,qty;
+	cout<<"Enter the id of the book";
+	cin>>id;
+	cout<<"\nEnter The name of book: ";
+	getline(cin,name);
+	getline(cin,name);
+	cout<<"\nEnter Author of book: ";
+	getline(cin,author);
+	cout<<"\nPulished: ";
+	cin>>pdate;
+	cout<<"\nQuantity: ";
+	cin>>qty;
+	outFile<<id<<" , "<<name<<" , "<<author<<" , "<<pdate<<" , "<<qty;
+	outFile.close();
 }
 void ShowAllStudents(){
-	
-	
-	
-	
+	string s,id,lastName,firstName,age,contactNumber,emailAddress;
+	inFile.open("student.dat");
+	while(getline(inFile,s)){
+		stringstream ss(s);
+		ss>>id>>lastName>>firstName>>age>>contactNumber>>emailAddress;
+		cout<<left<<setw(10)<<id;
+		cout<<left<<setw(20)<<lastName;
+		cout<<left<<setw(20)<<firstName;
+		cout<<left<<setw(15)<<age;
+		cout<<left<<setw(15)<<contactNumber;
+		cout<<left<<setw(30)<<emailAddress<<"\n";
+	}
+	inFile.close();
 }
 void ShowAllBooks(){
+	inFile.open("book.dat");
+	char ch;
+	string s,id,name,author,pdate,qty;
+	while(getline(inFile,s)){
+		stringstream ss(s);
+		ss>>id>>ch>>name>>ch>>author>>pdate>>qty;
+		cout<<left<<setw(10)<<id;
+		cout<<left<<setw(20)<<name;
+		cout<<left<<setw(20)<<author;
+		cout<<left<<setw(15)<<pdate;
+		cout<<left<<setw(15)<<qty;
+	}
 	
 	
-	
-	
+	inFile.close();
 }
 void ShowSpecificStudent(){
-	
-	
-	
 	
 }
 void ShowSpecificBook(){
 	
-	
-	
-	
 }
 void BorrowBook(){
 	
-	
-	
-	
+
 }
 void ReturnBook(){
-	
-	
-	
 	
 }
 
